@@ -19,3 +19,10 @@ serve:
 # Create a new blog post: just new My Post Title
 new +title:
     python3 scripts/new_post.py {{title}}
+
+# Delete a post interactively using fzf
+delete-post:
+    bash scripts/delete_post.sh
+
+alias delete := delete-post
+alias rm-post := delete-post
