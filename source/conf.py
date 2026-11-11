@@ -24,7 +24,7 @@ exclude_patterns = []
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'lumina'
-html_baseurl = 'http://localhost/'  # Replace with your domain when deploying
+html_baseurl = 'https://fractaldesigns.github.io/blog/'
 
 html_theme_options = {
     # 'dark_mode_default': 'auto',  # 'auto', 'light', or 'dark'

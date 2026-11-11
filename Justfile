@@ -11,6 +11,10 @@ build-wasm:
 # Build both WebAssembly and Sphinx blog
 build-all: build-wasm build
 
+# Deploy to GitHub Pages via gh-pages branch (bypasses GitHub Actions)
+deploy: build-all
+    python3 scripts/deploy_gh_pages.py
+
 # Run local web server to preview blog and test WASM in browser
 serve:
     python3 -m http.server 8000 --directory build/
