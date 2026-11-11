@@ -1,7 +1,0 @@
-Hello World Sphinx Blog
-=======================
-
-:date: November 06, 2026
-:author: A Demon
-
-Write your content here...

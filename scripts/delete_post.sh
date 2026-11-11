@@ -31,18 +31,27 @@ fi
 
 base="${selected%.rst}"
 
-# Delete the post file and its generated files
+# Delete the post source and its generated files
 rm -f "source/posts/${selected}"
 rm -f "posts/${base}.html"
 rm -f "_sources/posts/${selected}.txt"
 echo "✓ Deleted source/posts/${selected}"
 
-# Rebuild blog so index.html and sitemap are immediately up-to-date
-echo "→ Updating blog index..."
+# Clean any orphaned posts in posts/
+for html in posts/*.html; do
+    [ -f "$html" ] || continue
+    b=$(basename "$html" .html)
+    if [ ! -f "source/posts/${b}.rst" ]; then
+        rm -f "$html" "_sources/posts/${b}.rst.txt"
+    fi
+done
+
+# Rebuild ALL pages (-a -E) so sidebars and navigation links are completely refreshed
+echo "→ Updating blog index and sidebars on all pages..."
 if command -v sphinx-build &>/dev/null; then
-    sphinx-build -b html source/ .
+    sphinx-build -a -E -b html source/ .
 elif [ -x "/home/linuxbrew/.linuxbrew/bin/sphinx-build" ]; then
-    /home/linuxbrew/.linuxbrew/bin/sphinx-build -b html source/ .
+    /home/linuxbrew/.linuxbrew/bin/sphinx-build -a -E -b html source/ .
 fi
 touch .nojekyll
-echo "✓ Blog updated successfully."
+echo "✓ Blog updated successfully. Sidebars refreshed across all pages."

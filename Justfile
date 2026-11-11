@@ -2,7 +2,8 @@ export PATH := "/home/linuxbrew/.linuxbrew/bin:" + env_var('HOME') + "/.cargo/bi
 
 # Build blog directly into root directory (served by GitHub Pages)
 build:
-    sphinx-build -b html source/ .
+    python3 -c "import os, glob; [(os.remove(f), os.remove(t) if os.path.exists(t:=f'_sources/{f}.txt') else None) for f in glob.glob('posts/*.html') if not os.path.exists('source/' + f.removesuffix('.html') + '.rst')]"
+    sphinx-build -a -E -b html source/ .
     touch .nojekyll
 
 # Build the Rust egui WebAssembly app into source/_static/wasm/
