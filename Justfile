@@ -27,3 +27,10 @@ delete-post:
 
 alias delete := delete-post
 alias rm-post := delete-post
+
+# Rename a post interactively using fzf
+rename-post:
+    bash scripts/rename_post.sh
+
+alias rename := rename-post
+alias mv-post := rename-post
