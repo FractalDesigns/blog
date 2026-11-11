@@ -1,0 +1,7 @@
+Welcome to Lumina Theme
+=======================
+
+:date: November 06, 2026
+:author: A Demon
+
+Write your content here...

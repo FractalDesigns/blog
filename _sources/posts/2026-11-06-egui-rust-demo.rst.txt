@@ -1,0 +1,115 @@
+Interactive egui Rust GUI in WebAssembly
+=========================================
+
+:date: November 06, 2026
+:author: A Demon
+
+This page hosts an interactive desktop application built in **Rust** using `egui <https://github.com/emilk/egui>`_, compiled to **WebAssembly (WASM)** and rendered directly in your browser via WebGL.
+
+.. raw:: html
+
+   <div class="egui-window-container" style="margin: 2rem 0; border: 1px solid rgba(120, 120, 120, 0.25); border-radius: 0.75rem; overflow: hidden; background: #18181b; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25);">
+     <!-- Faux Desktop Window Header -->
+     <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 1rem; background: #27272a; border-bottom: 1px solid rgba(255, 255, 255, 0.08); user-select: none;">
+       <div style="display: flex; align-items: center; gap: 0.5rem;">
+         <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: #ef4444;"></span>
+         <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: #eab308;"></span>
+         <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: #22c55e;"></span>
+         <span style="margin-left: 0.75rem; font-family: monospace; font-size: 0.85rem; color: #d4d4d8; font-weight: 500;">egui-demo.wasm</span>
+       </div>
+       <div style="display: flex; align-items: center; gap: 0.5rem;">
+         <span style="display: inline-block; padding: 0.15rem 0.5rem; font-size: 0.72rem; font-family: monospace; border-radius: 9999px; background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3);">WebGL 2.0</span>
+       </div>
+     </div>
+
+     <!-- Canvas Area with Loading State -->
+     <div style="position: relative; width: 100%; height: 500px; background: #121214;">
+       <div id="egui_loader" style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #a1a1aa; font-family: system-ui, sans-serif; font-size: 0.95rem; gap: 0.75rem; z-index: 10; background: #121214; padding: 1.5rem;">
+         <div id="egui_spinner" style="width: 2.2rem; height: 2.2rem; border: 3px solid #3f3f46; border-top-color: #10b981; border-radius: 50%; animation: egui-spin 0.8s linear infinite;"></div>
+         <span id="egui_status_text">Starting WebAssembly application...</span>
+       </div>
+       <canvas id="egui_canvas" style="display: block; width: 100%; height: 100%; outline: none;"></canvas>
+     </div>
+   </div>
+
+   <style>
+     @keyframes egui-spin {
+       to { transform: rotate(360deg); }
+     }
+   </style>
+
+   <!-- Classic script tags: allowed on file:// as well as http:// / https:// -->
+   <script src="../_static/wasm/egui_demo.js"></script>
+   <script src="../_static/wasm/egui_wasm_data.js"></script>
+   <script>
+     (function() {
+       const loader = document.getElementById('egui_loader');
+       const statusText = document.getElementById('egui_status_text');
+       const spinner = document.getElementById('egui_spinner');
+
+       function base64ToUint8Array(base64) {
+         const binaryString = atob(base64);
+         const len = binaryString.length;
+         const bytes = new Uint8Array(len);
+         for (let i = 0; i < len; i++) {
+           bytes[i] = binaryString.charCodeAt(i);
+         }
+         return bytes;
+       }
+
+       async function startEgui() {
+         try {
+           if (typeof wasm_bindgen === 'undefined') {
+             throw new Error('wasm_bindgen script failed to load.');
+           }
+
+           if (statusText) statusText.innerText = 'Initializing WebAssembly binary...';
+
+           // Decode inlined WASM bytes — works directly over file:// and on web servers without CORS fetch restrictions!
+           const wasmBytes = base64ToUint8Array(window.__EGUI_WASM_BASE64);
+           await wasm_bindgen(wasmBytes);
+
+           if (statusText) statusText.innerText = 'Initializing WebGL canvas...';
+
+           const handle = new wasm_bindgen.WebHandle();
+           await handle.start('egui_canvas');
+
+           // Smoothly fade out loader overlay
+           if (loader) {
+             loader.style.opacity = '0';
+             loader.style.transition = 'opacity 0.25s ease-out';
+             setTimeout(() => {
+               if (loader.parentNode) loader.remove();
+             }, 250);
+           }
+         } catch (err) {
+           console.error('Failed to start egui WASM app:', err);
+           if (spinner) spinner.style.display = 'none';
+           if (loader) {
+             loader.innerHTML = `
+               <div style="max-width: 440px; background: #18181b; border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 8px; padding: 1.25rem; text-align: center; color: #f4f4f5;">
+                 <div style="font-size: 1.5rem; margin-bottom: 0.35rem;">⚠️</div>
+                 <div style="font-weight: 600; color: #f87171; margin-bottom: 0.5rem;">WebAssembly Initialization Error</div>
+                 <pre style="text-align: left; background: #09090b; padding: 0.6rem; border-radius: 4px; font-size: 0.75rem; color: #fca5a5; overflow-x: auto;">${err.message || err}</pre>
+               </div>
+             `;
+           }
+         }
+       }
+
+       if (document.readyState === 'loading') {
+         document.addEventListener('DOMContentLoaded', startEgui);
+       } else {
+         startEgui();
+       }
+     })();
+   </script>
+
+Features in this Demo
+---------------------
+
+* **Zero Local Server Required**: Bundled to run directly from disk (`file://`) and on any static hosting (GitHub Pages).
+* **🎛️ Interactive Controls**: Live text input, sliders, checkboxes, radio options, dropdown combo boxes, color pickers, and a reactive progress bar.
+* **🎨 Live WebGL Canvas**: Hardware-accelerated 2D graphics with an animated wave function and interactive geometry.
+* **📊 System Diagnostics**: Real-time viewport measurements and metrics.
+* **🌓 Light / Dark Sync**: Try the theme buttons in the egui window or the Sphinx Lumina top navigation.

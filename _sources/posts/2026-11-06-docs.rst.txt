@@ -1,0 +1,6 @@
+Testing a New Entry
+===================
+
+:date: November 6, 2026
+
+Testing a new entry content.
