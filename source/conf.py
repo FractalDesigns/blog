@@ -24,6 +24,8 @@ exclude_patterns = []
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'lumina'
+html_title = 'Achraf Elafrit'
+html_short_title = 'Achraf Elafrit'
 html_baseurl = 'https://fractaldesigns.github.io/blog/'
 
 html_theme_options = {

@@ -10,7 +10,7 @@ documentation for details.
 
 .. toctree::
    :maxdepth: 2
-   :caption: Blog Posts:
+   :caption: Posts:
    :glob:
    :reversed:
 

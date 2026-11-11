@@ -1,7 +1,0 @@
-hello
-=====
-
-:date: November 11, 2026
-:author: Achraf Elafrit
-
-Write your content here...
