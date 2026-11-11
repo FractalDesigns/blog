@@ -29,5 +29,6 @@ html_baseurl = 'https://fractaldesigns.github.io/blog/'
 html_theme_options = {
     # 'dark_mode_default': 'auto',  # 'auto', 'light', or 'dark'
     # 'accent_color': '#10b981',     # custom accent color if desired
+    'show_attribution': False,
 }
 html_static_path = ['_static']
