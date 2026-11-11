@@ -6,9 +6,9 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'Blog'
-copyright = '2023, Achraf ELAFRIT'
-author = 'Achraf ELAFRIT'
+project = "A Demon's personal blog"
+copyright = '2026, A Demon'
+author = 'A Demon'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -23,5 +23,11 @@ exclude_patterns = []
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'alabaster'
+html_theme = 'lumina'
+html_baseurl = 'http://localhost/'  # Replace with your domain when deploying
+
+html_theme_options = {
+    # 'dark_mode_default': 'auto',  # 'auto', 'light', or 'dark'
+    # 'accent_color': '#10b981',     # custom accent color if desired
+}
 html_static_path = ['_static']
