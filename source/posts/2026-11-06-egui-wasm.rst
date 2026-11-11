@@ -1,5 +1,5 @@
-Interactive egui Rust GUI in WebAssembly
-=========================================
+egui-wasm
+=========
 
 :date: November 06, 2026
 :author: Achraf Elafrit
