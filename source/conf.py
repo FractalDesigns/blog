@@ -8,9 +8,9 @@ import os
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = "A Demon's personal blog"
-copyright = '2026, A Demon'
-author = 'A Demon'
+project = "Achraf Elafrit"
+copyright = '2026, Achraf Elafrit'
+author = 'Achraf Elafrit'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

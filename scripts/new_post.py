@@ -43,7 +43,7 @@ def main():
 {underline}
 
 :date: {date_display}
-:author: A Demon
+:author: Achraf Elafrit
 
 Write your content here...
 """

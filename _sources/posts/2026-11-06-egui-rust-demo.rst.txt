@@ -2,7 +2,7 @@ Interactive egui Rust GUI in WebAssembly
 =========================================
 
 :date: November 06, 2026
-:author: A Demon
+:author: Achraf Elafrit
 
 This page hosts an interactive desktop application built in **Rust** using `egui <https://github.com/emilk/egui>`_, compiled to **WebAssembly (WASM)** and rendered directly in your browser via WebGL.
 
