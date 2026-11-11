@@ -32,5 +32,22 @@ html_theme_options = {
     # 'dark_mode_default': 'auto',  # 'auto', 'light', or 'dark'
     # 'accent_color': '#10b981',     # custom accent color if desired
     'show_attribution': False,
+    'social_links': [
+        {
+            'icon': 'github',
+            'url': 'https://github.com/FractalDesigns',
+            'title': 'GitHub',
+        },
+        {
+            'icon': 'linkedin',
+            'url': 'https://www.linkedin.com/in/achrafelafrit/',
+            'title': 'LinkedIn',
+        },
+        {
+            'icon': 'twitter',
+            'url': 'https://x.com/AchrafElafrit',
+            'title': 'X (formerly Twitter)',
+        },
+    ],
 }
 html_static_path = ['_static']
