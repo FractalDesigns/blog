@@ -1,0 +1,25 @@
+# Sphinx build & cache
+build/
+.doctrees/
+docs/.doctrees/
+*.doctree
+*.pickle
+*.bak
+
+# Rust build artifacts
+target/
+egui_demo/target/
+**/*.rs.bk
+
+# Python cache & virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+
+# OS / Editor artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
